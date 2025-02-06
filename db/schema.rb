@@ -10,8 +10,37 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 0) do
+ActiveRecord::Schema[7.2].define(version: 2025_02_01_141303) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "bookmarks", force: :cascade do |t|
+    t.bigint "movie_id"
+    t.bigint "list_id"
+    t.string "comment"
+    t.string "char"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "lists", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "movie_id"
+    t.index ["movie_id"], name: "index_lists_on_movie_id"
+    t.index ["name"], name: "index_lists_on_name", unique: true
+  end
+
+  create_table "movies", force: :cascade do |t|
+    t.string "title"
+    t.string "overview"
+    t.string "poster_url"
+    t.float "rating"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_foreign_key "bookmarks", "movies", on_delete: :restrict
+  add_foreign_key "lists", "movies"
 end
