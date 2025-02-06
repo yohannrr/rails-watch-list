@@ -42,6 +42,6 @@ class ListsController < ApplicationController
 
   # Permet de définir quels paramètres sont autorisés pour la création ou mise à jour d'une liste
   def list_params
-    params.require(:list).permit(:name)
+    params.require(:list).permit(:name, :image_url)
   end
 end

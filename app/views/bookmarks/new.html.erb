@@ -1,11 +1,27 @@
-<h3>Add a movie to the list</h3>
+<h1>Ajouter un film à <%= @list.name %></h1>
 
-<%= simple_form_for [@list, @bookmark] do |f| %>
-  <div class="form-group">
-    <%= f.association :movie, collection: Movie.all, prompt: "Choose a movie" %>
+<%= form_with model: @bookmark, url: list_bookmarks_path(@list), local: true do |form| %>
+  <div class="mb-3">
+    <%= form.label :movie_id, "Film", class: "form-label" %>
+    <%= form.collection_select :movie_id, Movie.all, :id, :title, { prompt: "Sélectionner un film" }, class: "form-control" %>
+    <% if @bookmark.errors[:movie_id].any? %>
+      <div class="invalid-feedback">
+        <%= @bookmark.errors[:movie_id].first %>
+      </div>
+    <% end %>
   </div>
-  <div class="form-group">
-    <%= f.input :comment, label: "Comment" %>
+
+  <div class="mb-3">
+    <%= form.label :comment, "Commentaire", class: "form-label" %>
+    <%= form.text_area :comment, class: "form-control" %>
+    <% if @bookmark.errors[:comment].any? %>
+      <div class="invalid-feedback">
+        <%= @bookmark.errors[:comment].first %>
+      </div>
+    <% end %>
   </div>
-  <%= f.submit "Add", class: "btn btn-primary" %>
+
+  <%= form.submit "Ajouter", class: "btn btn-primary" %>
 <% end %>
+
+<%= link_to "Retour à la liste", list_path(@list), class: "btn btn-secondary" %>

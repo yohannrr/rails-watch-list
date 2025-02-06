@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_02_01_141303) do
+ActiveRecord::Schema[7.2].define(version: 2025_02_06_193634) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -28,6 +28,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_02_01_141303) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "movie_id"
+    t.string "image_url"
     t.index ["movie_id"], name: "index_lists_on_movie_id"
     t.index ["name"], name: "index_lists_on_name", unique: true
   end

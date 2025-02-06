@@ -1,11 +1,27 @@
-<h1>Create a New Movie List</h1>
+<h1>Nouvelle Liste</h1>
 
-<%= simple_form_for @list do |f| %>
-  <div class="form-group">
-    <%= f.input :name, label: "List Name" %>
+<%= form_with model: @list, local: true do |form| %>
+  <div class="mb-3">
+    <%= form.label :name, "Nom de la liste", class: "form-label" %>
+    <%= form.text_field :name, class: "form-control" %>
+    <% if @list.errors[:name].any? %>
+      <div class="invalid-feedback">
+        <%= @list.errors[:name].first %>
+      </div>
+    <% end %>
   </div>
 
-  <%= f.submit "Create", class: "btn btn-primary" %>
+  <div class="mb-3">
+    <%= form.label :image_url, "URL de l'image", class: "form-label" %>
+    <%= form.text_field :image_url, class: "form-control", placeholder: "Coller l'URL de l'image ici" %>
+    <% if @list.errors[:image_url].any? %>
+      <div class="invalid-feedback">
+        <%= @list.errors[:image_url].first %>
+      </div>
+    <% end %>
+  </div>
+
+  <%= form.submit "Créer", class: "btn btn-primary" %>
 <% end %>
 
-<%= link_to "Back", lists_path, class: "btn btn-secondary" %>
+<%= link_to "Retour à la liste des listes", lists_path, class: "btn btn-secondary" %>
